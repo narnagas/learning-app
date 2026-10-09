@@ -1,0 +1,24 @@
+# Only ship application source and container configuration to the builder.
+**
+!apps/
+!apps/learning-app/
+!apps/learning-app/**
+!deploy/
+!deploy/docker/
+!deploy/docker/Dockerfile
+!deploy/docker/nginx.conf
+**/node_modules
+**/dist
+**/.angular
+**/.vscode
+**/ios
+**/android
+**/.env
+**/.env.*
+**/*.wav
+**/*.WAV
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.jks
+**/*.keystore

@@ -21,4 +21,8 @@ See [product requirements](docs/product-requirements.md) and [folder structure](
 
 Use Node.js 24.15 or newer in the Node 24 release line. From `apps/learning-app/`, run `npm ci`, then `npm start`. Open http://localhost:4200. Run `npm run build` for a production build in `apps/learning-app/dist/learning-app/browser/`.
 
-The Angular application includes routing and a responsive language-selection screen. Selection lasts for the current page session; lesson content and progress persistence are not implemented yet. Native mobile projects, backend services, Docker/IIS configuration, and workflows remain planned.
+The Angular application includes routing and a responsive language-selection screen. Selection lasts for the current page session; lesson content and progress persistence are not implemented yet. Native mobile projects, backend services, IIS configuration, and workflows remain planned.
+
+## Run with Docker
+
+From the repository root, run `docker compose -f deploy/docker/compose.yaml up --build -d`, then open http://localhost:8080/languages. See [Docker instructions](deploy/docker/README.md) for lifecycle commands and the optional read-only WAV library mount.

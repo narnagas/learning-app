@@ -1,0 +1,10 @@
+name: learning-app
+services:
+  web:
+    image: learning-app:web-local
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
+    ports:
+      - "127.0.0.1:${APP_PORT:-8080}:80"
+    restart: unless-stopped

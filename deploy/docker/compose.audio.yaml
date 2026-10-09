@@ -1,0 +1,10 @@
+# Optional local lesson-audio library. This is public media, not user recordings.
+services:
+  web:
+    volumes:
+      - type: bind
+        source: ${AUDIO_LIBRARY_PATH:?Set AUDIO_LIBRARY_PATH to an existing audio directory}
+        target: /srv/audio
+        read_only: true
+        bind:
+          create_host_path: false

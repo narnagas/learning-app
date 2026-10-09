@@ -26,11 +26,11 @@
 
 - `content/manifests/{fr,tr,ru}/`: lesson definitions, separate from audio files.
 - `content/schemas/`: future manifest validation schemas.
-- `deploy/docker/`: future Docker build/runtime files.
+- `deploy/docker/`: Docker build, Compose configuration, Nginx hosting, and an optional read-only audio mount.
 - `deploy/iis/`: future IIS hosting/deployment files.
 - `.github/workflows/`: future CI workflows.
 - `docs/`: requirements and development/deployment guidance.
 
 Account, messaging, media storage, and tutor services need a backend. Its implementation and folder layout remain undecided. This scaffold does not select a backend technology, database, codec, or mobile framework.
 
-Empty planned directories contain `.gitkeep` files so Git preserves them. Remove placeholders when actual files are added. The Angular application now runs with a lazy-loaded language-selection screen. Deployment and native mobile projects remain planned. See the root README for local run and build commands.
+Empty planned directories contain `.gitkeep` files so Git preserves them. Remove placeholders when actual files are added. The Angular application now runs with a lazy-loaded language-selection screen and can be hosted in Docker. IIS integration and native mobile projects remain planned. See the root README for local run and build commands.
