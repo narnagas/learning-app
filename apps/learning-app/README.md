@@ -1,12 +1,15 @@
-# Shared learning application
+# Learning App
 
-The Angular application will be generated in this directory. iOS and Android projects will share its learning experience through a mobile packaging framework selected later.
+Angular 22 application with standalone components and lazy-loaded routing.
 
-- `src/app/core/`: application-wide services, including audio, adaptive learning, authentication, messaging, notifications, storage, and platform integration.
-- `src/app/features/`: user-facing learning and conversation features.
-- `src/app/shared/`: reusable components, models, and utilities.
-- `src/environments/`: non-secret environment configuration.
-- `public/`: public static assets shipped with the app. Do not place private recordings or the source WAV library here.
-- `ios/` and `android/`: reserved native projects and platform configuration.
+From this directory:
 
-Directory placeholders preserve the intended structure in Git. They do not represent implemented features.
+- `npm ci` installs the locked dependencies.
+- `npm start` serves the app at http://localhost:4200.
+- `npm run build` creates the production bundle in `dist/learning-app/browser/`.
+
+Use Node.js 24.15 or newer within the Node 24 release line.
+
+The initial `/languages` screen supports French, Turkish, and Russian. Selection is temporary and resets on refresh. Lessons, persistence, accounts, and native packaging are future work.
+
+See `../../docs/folder-structure.md` for responsibilities of the shared application and platform folders. No automated test runner has been configured yet; validation currently uses production compilation and browser checks.

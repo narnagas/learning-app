@@ -33,4 +33,4 @@
 
 Account, messaging, media storage, and tutor services need a backend. Its implementation and folder layout remain undecided. This scaffold does not select a backend technology, database, codec, or mobile framework.
 
-Empty planned directories contain `.gitkeep` files so Git preserves them. Remove placeholders when actual files are added. No runnable application or deployment is included yet.
+Empty planned directories contain `.gitkeep` files so Git preserves them. Remove placeholders when actual files are added. The Angular application now runs with a lazy-loaded language-selection screen. Deployment and native mobile projects remain planned. See the root README for local run and build commands.

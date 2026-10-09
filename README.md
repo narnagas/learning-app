@@ -17,4 +17,8 @@ Repository: https://github.com/narnagas/learning-app
 
 See [product requirements](docs/product-requirements.md) and [folder structure](docs/folder-structure.md).
 
-This is a folder scaffold. Angular, native mobile projects, backend services, deployment files, and workflows have not yet been generated. There are no build or run commands yet.
+## Run locally
+
+Use Node.js 24.15 or newer in the Node 24 release line. From `apps/learning-app/`, run `npm ci`, then `npm start`. Open http://localhost:4200. Run `npm run build` for a production build in `apps/learning-app/dist/learning-app/browser/`.
+
+The Angular application includes routing and a responsive language-selection screen. Selection lasts for the current page session; lesson content and progress persistence are not implemented yet. Native mobile projects, backend services, Docker/IIS configuration, and workflows remain planned.
