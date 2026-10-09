@@ -24,7 +24,7 @@
 
 ## Content and operations
 
-- `content/manifests/{fr,tr,ru}/`: lesson definitions, separate from audio files.
+- `content/manifests/{fr,tr,ru,it}/`: lesson definitions, separate from audio files.
 - `content/schemas/`: future manifest validation schemas.
 - `deploy/docker/`: Docker build, Compose configuration, Nginx hosting, and an optional read-only audio mount.
 - `deploy/iis/`: future IIS hosting/deployment files.

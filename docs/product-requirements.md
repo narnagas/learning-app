@@ -6,7 +6,7 @@ Repository: https://github.com/narnagas/learning-app
 
 Help adults understand, think, write, and eventually speak in a new language, preserving their mature ideas and individual voice. The application is a learning environment, not a universal translator.
 
-Initial languages: French, Turkish, and Russian. English is also a discussed learning use case; confirm its release scope before implementation.
+Initial test languages: French, Turkish, Russian, and Italian, with 10 fixtures per language. English is also a discussed learning use case; confirm its release scope before implementation. These fixtures do not define the final curriculum.
 
 ## Personalized learning
 

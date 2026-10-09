@@ -1,6 +1,6 @@
 # Lesson content
 
-`manifests/fr/`, `manifests/tr/`, and `manifests/ru/` hold French, Turkish, and Russian lesson definitions. `schemas/` will define and validate their structure.
+`manifests/fr/`, `manifests/tr/`, `manifests/ru/`, and `manifests/it/` hold French, Turkish, Russian, and Italian lesson definitions. `schemas/` will define and validate their structure.
 
 Manifest design should include lesson version, contextual learning goals, relative audio references, transcripts, useful grammar, writing prompts, practice points, and assistance levels. The schema is not yet defined.
 

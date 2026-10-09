@@ -30,7 +30,9 @@ export class TestLessons implements OnDestroy {
   readonly all = signal<Lesson[]>([]);
   readonly lessons = computed(() => this.all().filter((item) => item.language === this.language()));
   readonly languageName = computed(
-    () => ({ fr: 'French', tr: 'Turkish', ru: 'Russian' })[this.language()] ?? 'Language',
+    () =>
+      ({ fr: 'French', tr: 'Turkish', ru: 'Russian', it: 'Italian' })[this.language()] ??
+      'Language',
   );
   readonly selected = signal(0);
   readonly lesson = computed(() => this.lessons()[this.selected()]);

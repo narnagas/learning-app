@@ -4,9 +4,9 @@ const base = process.argv[2] ?? 'http://localhost:8080';
 const response = await fetch(`${base}/test-lessons/index.json`);
 assert.equal(response.status, 200);
 const { lessons } = await response.json();
-assert.equal(lessons.length, 30);
-assert.equal(new Set(lessons.map(item => item.id)).size, 30);
-for (const language of ['fr','tr','ru']) assert.equal(lessons.filter(item => item.language === language).length, 10);
+assert.equal(lessons.length, 40);
+assert.equal(new Set(lessons.map(item => item.id)).size, 40);
+for (const language of ['fr','tr','ru','it']) assert.equal(lessons.filter(item => item.language === language).length, 10);
 for (const lesson of lessons) {
   const audio = await fetch(`${base}${lesson.audio}`);
   assert.equal(audio.status, 200, lesson.id);
@@ -28,4 +28,4 @@ for (const lesson of lessons) {
   assert.equal(range.status,206,`${lesson.id}: seeking support`);
   assert.equal((await range.arrayBuffer()).byteLength,44);
 }
-console.log('Passed: 30 unique lessons, 10 per language, valid non-silent PCM WAVs, and HTTP byte-range playback.');
+console.log('Passed: 40 unique lessons, 10 per language, valid non-silent PCM WAVs, and HTTP byte-range playback.');

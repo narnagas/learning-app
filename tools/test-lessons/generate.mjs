@@ -1,9 +1,11 @@
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { italianRows } from './italian.mjs';
 
 // Original synthetic fixtures for exercising features, not a validated curriculum.
 // title, transcript, English meaning, grammar, writing prompt, cloze, accepted answer
 const data = {
+  it: italianRows,
   fr: [
     ['Meeting a colleague', 'Bonjour, je suis Camille. Je travaille avec votre équipe. Et vous, quel est votre rôle ?', 'Hello, I am Camille. I work with your team. And you, what is your role?', 'Je suis introduces identity; je travaille describes an activity. Vous is the polite or plural form.', 'Introduce yourself and describe your role.', 'Je ___ Camille.', 'suis'],
     ['Planning the morning', 'Le matin, je bois un café et je lis mes messages. Ensuite, je commence mon travail.', 'In the morning, I drink a coffee and read my messages. Then I start my work.', 'Use the present tense for routines. Ensuite connects the next activity.', 'Write two sentences about your morning.', 'Ensuite, je ___ mon travail.', 'commence'],

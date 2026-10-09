@@ -16,6 +16,9 @@
     ><a routerLink="/lessons/ru" [attr.aria-current]="language() === 'ru' ? 'page' : null"
       >Russian</a
     >
+    <a routerLink="/lessons/it" [attr.aria-current]="language() === 'it' ? 'page' : null"
+      >Italian</a
+    >
   </nav>
   @if (message()) {
     <p role="status">{{ message() }}</p>
@@ -27,7 +30,7 @@
     <p role="alert">{{ error() }}</p>
   }
   @if (!loading() && !error() && !lessons().length) {
-    <p>No test lessons for this language. Choose French, Turkish, or Russian above.</p>
+    <p>No test lessons for this language. Choose French, Turkish, Russian, or Italian above.</p>
   }
   <div class="workspace">
     <aside aria-label="Lesson list">

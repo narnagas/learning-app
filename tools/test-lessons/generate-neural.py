@@ -5,23 +5,28 @@ from pathlib import Path
 import subprocess
 import tempfile
 import wave
+import argparse
 
 import edge_tts
 
 ROOT = Path('/workspace')
 INDEX = ROOT / 'apps/learning-app/public/test-lessons/index.json'
-VOICES = {'fr': 'fr-FR-DeniseNeural', 'tr': 'tr-TR-EmelNeural', 'ru': 'ru-RU-SvetlanaNeural'}
+VOICES = {'fr': 'fr-FR-DeniseNeural', 'tr': 'tr-TR-EmelNeural', 'ru': 'ru-RU-SvetlanaNeural', 'it': 'it-IT-ElsaNeural'}
 
 
 async def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--language', choices=list(VOICES))
+    args = parser.parse_args()
     payload = json.loads(INDEX.read_text(encoding='utf-8'))
+    selected = [lesson for lesson in payload['lessons'] if not args.language or lesson['language'] == args.language]
     available = {voice['ShortName'] for voice in await asyncio.wait_for(edge_tts.list_voices(), timeout=45)}
-    for voice in VOICES.values():
+    for voice in {VOICES[lesson['language']] for lesson in selected}:
         if voice not in available:
             raise RuntimeError(f'Expected neural voice is unavailable: {voice}')
     with tempfile.TemporaryDirectory() as staging:
         outputs = []
-        for lesson in payload['lessons']:
+        for lesson in selected:
             voice = VOICES[lesson['language']]
             source = Path(staging) / f"{lesson['id']}.mp3"
             output = Path(staging) / f"{lesson['id']}.wav"
@@ -45,6 +50,7 @@ async def main():
             print(f"Generated {lesson['id']} with {voice}", flush=True)
         # Keep the previous working index intact if any synthesis request fails.
         for output, destination in outputs:
+            destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(output.read_bytes())
         payload['version'] = 2
         payload['generator'] = 'Microsoft Edge neural TTS via edge-tts; 24 kHz mono PCM WAV'
@@ -52,7 +58,7 @@ async def main():
             path = ROOT / f'content/manifests/{language}/test-lessons.json'
             path.write_text(json.dumps([lesson for lesson in payload['lessons'] if lesson['language'] == language], ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
         INDEX.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print('Published 30 neural WAVs and updated all lesson manifests.', flush=True)
+    print(f'Published {len(selected)} neural WAVs and updated all lesson manifests.', flush=True)
 
 
 if __name__ == '__main__':

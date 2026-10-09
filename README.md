@@ -21,9 +21,9 @@ See [product requirements](docs/product-requirements.md) and [folder structure](
 
 Use Node.js 24.15 or newer in the Node 24 release line. From `apps/learning-app/`, run `npm ci`, then `npm start`. Open http://localhost:4200. Run `npm run build` for a production build in `apps/learning-app/dist/learning-app/browser/`.
 
-The Angular application includes a responsive language library and 10 synthetic test lessons each for French, Turkish, and Russian. Lessons exercise WAV playback, transcript/meaning controls, adjustable assistance, grammar recall, writing drafts, local progress, and optional browser recording. Test lessons do not define the final curriculum. Native mobile projects, backend services, IIS configuration, and workflows remain planned.
+The Angular application includes a responsive language library and 10 synthetic test lessons each for French, Turkish, Russian, and Italian. Lessons exercise WAV playback, transcript/meaning controls, adjustable assistance, grammar recall, writing drafts, local progress, and optional browser recording. Test lessons do not define the final curriculum. Native mobile projects, backend services, IIS configuration, and workflows remain planned.
 
-Open `/lessons/fr`, `/lessons/tr`, or `/lessons/ru` to practice. Drafts and completion records are saved in this browser's local storage when you save or mark practiced. Unsaved edits are discarded when changing lessons. Voice recordings stay only in the page session and are not uploaded. Browser recording uses the browser's supported format, not a WAV conversion pipeline.
+Open `/lessons/fr`, `/lessons/tr`, `/lessons/ru`, or `/lessons/it` to practice. Drafts and completion records are saved in this browser's local storage when you save or mark practiced. Unsaved edits are discarded when changing lessons. Voice recordings stay only in the page session and are not uploaded. Browser recording uses the browser's supported format, not a WAV conversion pipeline.
 
 See [test fixture generation and verification](tools/test-lessons/README.md).
 

@@ -82,7 +82,9 @@ import { RouterLink } from '@angular/router';
         </ol>
       </section>
     </main>
-    <footer>Your pace. Your interests. Your voice.<span>French · Turkish · Russian</span></footer>
+    <footer>
+      Your pace. Your interests. Your voice.<span>French · Turkish · Russian · Italian</span>
+    </footer>
   `,
   styles: `
     :host {
@@ -165,7 +167,7 @@ import { RouterLink } from '@angular/router';
     }
     .languages {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
     }
     .language {
@@ -319,6 +321,12 @@ import { RouterLink } from '@angular/router';
 })
 export class LanguageLibrary {
   readonly languages = [
+    {
+      code: 'it',
+      name: 'Italian',
+      greeting: 'Buongiorno',
+      description: 'Share your ideas with a new rhythm and voice.',
+    },
     {
       code: 'fr',
       name: 'French',

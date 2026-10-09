@@ -1,10 +1,10 @@
 # Synthetic lesson fixtures
 
-These 30 original short lessons exercise playback, transcripts, adjustable assistance, grammar recall, writing, and optional local recording. They do not define the curriculum or the final personalization experience. Translations use English as a temporary test interface language, not as the only supported native language.
+These 40 original short lessons exercise playback, transcripts, adjustable assistance, grammar recall, writing, and optional local recording. They do not define the curriculum or the final personalization experience. Translations use English as a temporary test interface language, not as the only supported native language.
 
 ## Natural test voices
 
-The current lesson audio uses French Denise, Turkish Emel, and Russian Svetlana neural voices. Generation uses the third-party [edge-tts](https://github.com/rany2/edge-tts) client for Microsoft's online Edge speech service. Only the original public lesson text is sent for generation; no learner recordings or profiles are used. This is a prototype generation tool, not a supported production speech API.
+The current lesson audio uses French Denise, Turkish Emel, Russian Svetlana, and Italian Elsa neural voices. Generation uses the third-party [edge-tts](https://github.com/rany2/edge-tts) client for Microsoft's online Edge speech service. Only the original public lesson text is sent for generation; no learner recordings or profiles are used. This is a prototype generation tool, not a supported production speech API.
 
 Generate improved audio from the existing manifests:
 
@@ -14,9 +14,11 @@ docker run --rm --mount "type=bind,source=$($PWD.Path),target=/workspace" learni
 docker compose -f deploy/docker/compose.yaml up --build -d
 ```
 
-The tool stages all 30 results before changing the lesson index. It converts speech to 24 kHz mono 16-bit PCM WAV, slows delivery by 8%, and uses new `-neural.wav` URLs to avoid replaying cached robotic files. Voice provenance is stored in the manifests. The app serves these files locally without a runtime cloud connection. For production, select a supported provider such as [Azure Speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support) and review voice quality and service terms.
+The tool stages all 40 results before changing the lesson index. It converts speech to 24 kHz mono 16-bit PCM WAV, slows delivery by 8%, and uses new `-neural.wav` URLs to avoid replaying cached robotic files. Voice provenance is stored in the manifests. The app serves these files locally without a runtime cloud connection. For production, select a supported provider such as [Azure Speech](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support) and review voice quality and service terms.
 
 ## Original offline fixtures
+
+For Italian-only regeneration after seeding with `node tools/test-lessons/add-italian.mjs`, run the neural container with `python tools/test-lessons/generate-neural.py --language it`. This preserves the existing French, Turkish, and Russian audio.
 
 The original eSpeak generator remains available as an explicit offline fallback. Running it resets manifests to the older robotic voices. Generate the original WAV files and manifests from the repository root:
 
@@ -29,7 +31,7 @@ The generator uses language-specific eSpeak NG voices, validates RIFF/WAVE heade
 
 The original eSpeak voices are robotic; neural voices are still synthetic. Audio and teaching content require native-speaker review before production use. Recordings made by learners stay in the current browser session and are never sent to a service. Browser microphone permission is requested only after the learner clicks Record.
 
-Verify all 30 files served by the running application:
+Verify all 40 files served by the running application:
 
 ```powershell
 node tools/test-lessons/verify.mjs http://localhost:8080
