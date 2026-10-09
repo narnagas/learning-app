@@ -1,8 +1,10 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-language-library',
   standalone: true,
+  imports: [RouterLink],
   template: `
     <header>
       <a class="brand" href="/">Learning App<span>A language. Your voice.</span></a
@@ -41,8 +43,8 @@ import { Component, signal } from '@angular/core';
         </div>
         @if (selected()) {
           <p class="selection" role="status">
-            You've chosen {{ selectedName() }}. Your selection is ready for this session; lessons
-            will be added next.
+            You've chosen {{ selectedName() }}.
+            <a [routerLink]="['/lessons', selected()]">Open 10 test lessons →</a>
           </p>
         }
       </section>

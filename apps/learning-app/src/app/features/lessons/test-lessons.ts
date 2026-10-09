@@ -1,0 +1,220 @@
+import { Component, computed, inject, signal, OnDestroy } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+interface Lesson {
+  id: string;
+  language: string;
+  title: string;
+  transcript: string;
+  meaning: string;
+  grammar: string;
+  prompt: string;
+  cloze: string;
+  answer: string;
+  audio: string;
+}
+interface Practice {
+  draft: string;
+  complete: boolean;
+}
+
+@Component({
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './test-lessons.html',
+  styleUrl: './test-lessons.css',
+})
+export class TestLessons implements OnDestroy {
+  readonly language = signal('fr');
+  readonly all = signal<Lesson[]>([]);
+  readonly lessons = computed(() => this.all().filter((item) => item.language === this.language()));
+  readonly languageName = computed(
+    () => ({ fr: 'French', tr: 'Turkish', ru: 'Russian' })[this.language()] ?? 'Language',
+  );
+  readonly selected = signal(0);
+  readonly lesson = computed(() => this.lessons()[this.selected()]);
+  readonly support = signal('guided');
+  readonly transcriptVisible = signal(true);
+  readonly meaningVisible = signal(false);
+  readonly answer = signal('');
+  readonly correct = signal(false);
+  readonly answerFeedback = signal('');
+  readonly draft = signal('');
+  readonly writingFeedback = signal('');
+  readonly message = signal('');
+  readonly loading = signal(true);
+  readonly error = signal('');
+  readonly audioError = signal('');
+  readonly practices = signal<Record<string, Practice>>({});
+  readonly completed = computed(
+    () => this.lessons().filter((item) => this.practices()[item.id]?.complete).length,
+  );
+  readonly recording = signal(false);
+  readonly starting = signal(false);
+  readonly recordingUrl = signal('');
+  readonly recordingError = signal('');
+  private recorder?: MediaRecorder;
+  private stream?: MediaStream;
+  private timer?: ReturnType<typeof setTimeout>;
+  private destroyed = false;
+  private generation = 0;
+
+  constructor() {
+    try {
+      this.practices.set(JSON.parse(localStorage.getItem('learning-app-test-practice-v1') ?? '{}'));
+    } catch {
+      this.message.set(
+        'Browser storage is unavailable. Practice can continue without saved progress.',
+      );
+    }
+    inject(ActivatedRoute)
+      .paramMap.pipe(takeUntilDestroyed())
+      .subscribe((params) => {
+        this.language.set(params.get('language') ?? 'fr');
+        this.choose(0);
+      });
+    fetch('/test-lessons/index.json')
+      .then(async (response) => {
+        if (!response.ok) throw new Error('Lesson files could not be loaded.');
+        const payload = await response.json();
+        this.all.set(payload.lessons);
+        this.choose(0);
+      })
+      .catch(() => this.error.set('Could not load test lessons. Refresh the page to try again.'))
+      .finally(() => this.loading.set(false));
+  }
+  choose(index: number) {
+    this.clearRecording();
+    this.selected.set(index);
+    this.answer.set('');
+    this.correct.set(false);
+    this.answerFeedback.set('');
+    this.writingFeedback.set('');
+    this.audioError.set('');
+    this.meaningVisible.set(false);
+    const item = this.lesson();
+    this.draft.set(item ? (this.practices()[item.id]?.draft ?? '') : '');
+  }
+  changeSupport(value: string) {
+    this.support.set(value);
+    this.meaningVisible.set(false);
+    this.transcriptVisible.set(value !== 'independent');
+  }
+  checkAnswer() {
+    const item = this.lesson();
+    if (!item) return;
+    const clean = (value: string) =>
+      value
+        .normalize('NFC')
+        .trim()
+        .toLocaleLowerCase(item.language)
+        .replace(/[.!?。]+$/u, '')
+        .trim();
+    const valid = clean(this.answer()) === clean(item.answer);
+    this.correct.set(valid);
+    this.answerFeedback.set(
+      valid
+        ? 'Correct. Now use the expression in your own writing.'
+        : 'Try again. Re-read or listen to the example and look at the grammar note.',
+    );
+  }
+  saveWriting() {
+    if (!this.draft().trim()) {
+      this.writingFeedback.set('Write a response first.');
+      return;
+    }
+    this.persist(false);
+    this.writingFeedback.set(
+      'Draft saved for practice. Self-review: does it express your idea, use the lesson pattern, and make sense when read aloud? Automated grammar assessment is not included in this test.',
+    );
+  }
+  complete() {
+    if (!this.correct() || !this.draft().trim()) {
+      this.writingFeedback.set('Complete the recall check and write your response first.');
+      return;
+    }
+    this.persist(true);
+    this.writingFeedback.set(
+      'Practice marked complete. This records participation, not a proficiency assessment.',
+    );
+  }
+  private persist(complete: boolean) {
+    const item = this.lesson();
+    if (!item) return;
+    this.practices.update((value) => ({
+      ...value,
+      [item.id]: { draft: this.draft(), complete: complete || value[item.id]?.complete || false },
+    }));
+    try {
+      localStorage.setItem('learning-app-test-practice-v1', JSON.stringify(this.practices()));
+    } catch {
+      this.message.set(
+        'Could not save to browser storage. Your draft remains available until you leave this page.',
+      );
+    }
+  }
+  async record() {
+    if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
+      this.recordingError.set(
+        'Recording is unavailable in this browser. Try a current browser on localhost or HTTPS.',
+      );
+      return;
+    }
+    this.clearRecording();
+    const token = this.generation;
+    this.starting.set(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (this.destroyed || token !== this.generation) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      this.stream = stream;
+      const recorder = new MediaRecorder(stream);
+      this.recorder = recorder;
+      const chunks: Blob[] = [];
+      recorder.ondataavailable = (event) => {
+        if (event.data.size) chunks.push(event.data);
+      };
+      recorder.onstop = () => {
+        stream.getTracks().forEach((track) => track.stop());
+        this.recording.set(false);
+        clearTimeout(this.timer);
+        if (!this.destroyed && token === this.generation && chunks.length)
+          this.recordingUrl.set(URL.createObjectURL(new Blob(chunks, { type: recorder.mimeType })));
+      };
+      recorder.onerror = () => {
+        this.recordingError.set('Recording failed. Please try again.');
+        this.stop();
+      };
+      recorder.start();
+      this.recording.set(true);
+      this.timer = setTimeout(() => this.stop(), 60000);
+    } catch {
+      this.stream?.getTracks().forEach((track) => track.stop());
+      this.recordingError.set(
+        'Microphone access was denied or unavailable. Writing practice still works.',
+      );
+    } finally {
+      this.starting.set(false);
+    }
+  }
+  stop() {
+    if (this.recorder?.state === 'recording') this.recorder.stop();
+  }
+  private clearRecording() {
+    this.generation++;
+    clearTimeout(this.timer);
+    this.stop();
+    this.stream?.getTracks().forEach((track) => track.stop());
+    this.recording.set(false);
+    if (this.recordingUrl()) URL.revokeObjectURL(this.recordingUrl());
+    this.recordingUrl.set('');
+    this.recordingError.set('');
+  }
+  ngOnDestroy() {
+    this.destroyed = true;
+    this.clearRecording();
+  }
+}

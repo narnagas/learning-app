@@ -1,0 +1,203 @@
+<header>
+  <a routerLink="/languages">← Language library</a
+  ><span>Feature testing · Synthetic lesson audio</span>
+</header>
+<main>
+  <p class="eyebrow">YOUR WORLD, IN {{ languageName().toUpperCase() }}</p>
+  <h1>Small lessons. Real situations.</h1>
+  <p class="intro">
+    Ten short examples to test listening, reading, grammar, writing, and optional speaking. These
+    fixtures do not define your learning path.
+  </p>
+  <nav aria-label="Lesson languages">
+    <a routerLink="/lessons/fr" [attr.aria-current]="language() === 'fr' ? 'page' : null">French</a
+    ><a routerLink="/lessons/tr" [attr.aria-current]="language() === 'tr' ? 'page' : null"
+      >Turkish</a
+    ><a routerLink="/lessons/ru" [attr.aria-current]="language() === 'ru' ? 'page' : null"
+      >Russian</a
+    >
+  </nav>
+  @if (message()) {
+    <p role="status">{{ message() }}</p>
+  }
+  @if (loading()) {
+    <p role="status">Loading lessons…</p>
+  }
+  @if (error()) {
+    <p role="alert">{{ error() }}</p>
+  }
+  @if (!loading() && !error() && !lessons().length) {
+    <p>No test lessons for this language. Choose French, Turkish, or Russian above.</p>
+  }
+  <div class="workspace">
+    <aside aria-label="Lesson list">
+      <h2>{{ languageName() }}</h2>
+      <p>{{ completed() }} / {{ lessons().length }} practiced</p>
+      @for (item of lessons(); track item.id; let i = $index) {
+        <button
+          [class.active]="selected() === i"
+          [attr.aria-current]="selected() === i ? 'step' : null"
+          (click)="choose(i)"
+        >
+          <span>{{ i + 1 }}. {{ item.title }}</span>
+          @if (practices()[item.id]?.complete) {
+            <span aria-label="Practiced">✓</span>
+          }
+        </button>
+      }
+    </aside>
+    @if (lesson(); as item) {
+      <article>
+        <div class="lesson-top">
+          <div>
+            <p class="eyebrow">LESSON {{ selected() + 1 }} / 10</p>
+            <h2>{{ item.title }}</h2>
+          </div>
+          <label
+            >Assistance<select
+              [value]="support()"
+              (change)="changeSupport($any($event.target).value)"
+            >
+              <option value="guided">Guided</option>
+              <option value="supported">Supported</option>
+              <option value="independent">Independent</option>
+            </select></label
+          >
+        </div>
+        <section>
+          <h3>1. Hear & read</h3>
+          @for (current of [item]; track current.id) {
+            <audio
+              #player
+              controls
+              preload="metadata"
+              [src]="current.audio"
+              (error)="
+                audioError.set('Audio could not be loaded. You can continue with the transcript.')
+              "
+            ></audio
+            ><label class="speed"
+              >Playback speed<select (change)="player.playbackRate = +$any($event.target).value">
+                <option value="1">Normal</option>
+                <option value="0.8">Slower (0.8×)</option>
+                <option value="1.2">Faster (1.2×)</option>
+              </select></label
+            >
+          }
+          @if (audioError()) {
+            <p role="alert">{{ audioError() }}</p>
+          }
+          <div class="actions">
+            <button (click)="transcriptVisible.set(!transcriptVisible())">
+              {{ transcriptVisible() ? 'Hide' : 'Show' }} transcript</button
+            ><button (click)="meaningVisible.set(!meaningVisible())">
+              {{ meaningVisible() ? 'Hide' : 'Show' }} English meaning
+            </button>
+          </div>
+          @if (transcriptVisible()) {
+            <p class="transcript" [attr.lang]="item.language">{{ item.transcript }}</p>
+          }
+          @if (meaningVisible()) {
+            <p class="meaning">{{ item.meaning }}</p>
+          }
+        </section>
+        <section>
+          <h3>2. Notice the grammar</h3>
+          @if (support() === 'guided') {
+            <p>{{ item.grammar }}</p>
+          } @else {
+            <details>
+              <summary>Show grammar explanation</summary>
+              <p>{{ item.grammar }}</p>
+            </details>
+          }
+          <label for="recall"
+            >Complete this phrase:
+            <strong [attr.lang]="item.language">{{ item.cloze }}</strong></label
+          >
+          <div class="answer-row">
+            <input
+              id="recall"
+              [attr.lang]="item.language"
+              [value]="answer()"
+              (input)="
+                answer.set($any($event.target).value); correct.set(false); answerFeedback.set('')
+              "
+              (keydown.enter)="checkAnswer()"
+              autocomplete="off"
+              placeholder="Missing word"
+            /><button (click)="checkAnswer()">Check answer</button>
+          </div>
+          @if (support() === 'guided') {
+            <details>
+              <summary>Need a word hint?</summary>
+              <p [attr.lang]="item.language">{{ item.answer }}</p>
+            </details>
+          }
+          <p role="status">{{ answerFeedback() }}</p>
+        </section>
+        <section>
+          <h3>3. Write in your own voice</h3>
+          <label for="writing">{{ item.prompt }}</label
+          ><textarea
+            id="writing"
+            rows="5"
+            [attr.lang]="item.language"
+            [value]="draft()"
+            (input)="draft.set($any($event.target).value); writingFeedback.set('')"
+            placeholder="Try a sentence or two in the target language."
+          ></textarea>
+          @if (support() === 'guided') {
+            <p class="hint">
+              Adapt a sentence from the transcript to your life. The grammar note and English
+              meaning are available if you need them.
+            </p>
+          }
+          <div class="actions">
+            <button (click)="saveWriting()">Save draft & self-review</button
+            ><button class="primary" (click)="complete()">Mark practiced</button>
+          </div>
+          <p role="status">{{ writingFeedback() }}</p>
+        </section>
+        <section>
+          <h3>4. Speak when ready</h3>
+          <p>
+            Read your response aloud and replay it beside the lesson audio. This is optional.
+            Recording stays in this page session, is limited to 60 seconds, and is not uploaded or
+            scored.
+          </p>
+          <div class="actions">
+            <button [disabled]="starting()" (click)="recording() ? stop() : record()">
+              {{
+                starting()
+                  ? 'Waiting for microphone…'
+                  : recording()
+                    ? 'Stop recording'
+                    : 'Record my response'
+              }}
+            </button>
+            @if (recording()) {
+              <span role="status">Recording…</span>
+            }
+          </div>
+          @if (recordingError()) {
+            <p role="alert">{{ recordingError() }}</p>
+          }
+          @if (recordingUrl()) {
+            <p>Your response</p>
+            <audio controls [src]="recordingUrl()"></audio>
+          }
+        </section>
+        <div class="actions">
+          <button [disabled]="selected() === 0" (click)="choose(selected() - 1)">← Previous</button
+          ><button
+            [disabled]="selected() === lessons().length - 1"
+            (click)="choose(selected() + 1)"
+          >
+            Next lesson →
+          </button>
+        </div>
+      </article>
+    }
+  </div>
+</main>

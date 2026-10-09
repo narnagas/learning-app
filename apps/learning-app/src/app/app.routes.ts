@@ -9,5 +9,10 @@ export const routes: Routes = [
         (module) => module.LanguageLibrary,
       ),
   },
+  {
+    path: 'lessons/:language',
+    loadComponent: () =>
+      import('./features/lessons/test-lessons').then((module) => module.TestLessons),
+  },
   { path: '**', redirectTo: 'languages' },
 ];

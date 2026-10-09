@@ -22,3 +22,4 @@
 **/*.pfx
 **/*.jks
 **/*.keystore
+!apps/learning-app/public/test-lessons/audio/**/*.wav

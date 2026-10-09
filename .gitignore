@@ -19,6 +19,7 @@ coverage/
 # Local media libraries and recordings
 *.wav
 *.WAV
+!apps/learning-app/public/test-lessons/audio/**/*.wav
 /recordings/
 /downloads/
 
