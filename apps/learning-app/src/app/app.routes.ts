@@ -19,5 +19,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/onboarding/learning-profile').then((module) => module.LearningProfilePage),
   },
+  {
+    path: 'progress',
+    loadComponent: () =>
+      import('./features/progress/progress').then((module) => module.ProgressPage),
+  },
   { path: '**', redirectTo: 'languages' },
 ];

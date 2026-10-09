@@ -27,6 +27,8 @@ Open `/lessons/fr`, `/lessons/tr`, `/lessons/ru`, or `/lessons/it` to practice. 
 
 See [test fixture generation and verification](tools/test-lessons/README.md).
 
+Open `/progress` for practice counts by language, a link to resume the last opened lesson, and a portfolio of saved writing. These counts describe practice activity, not language proficiency. See [practice dashboard behavior](docs/progress.md).
+
 Lesson audio uses language-specific neural voices, served as pre-generated WAV files. Playback does not contact the speech provider. The separate generation tool uses Microsoft Edge speech through `edge-tts` for this prototype; a supported production provider remains to be selected.
 
 ## Personalize practice

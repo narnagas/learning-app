@@ -1,0 +1,98 @@
+<header>
+  <a routerLink="/languages">← Language library</a><a routerLink="/profile">Learning profile</a>
+</header>
+<main>
+  <p class="eyebrow">MAKE YOUR PROGRESS VISIBLE</p>
+  <h1>Your practice, over time.</h1>
+  <p class="intro">
+    Return to your ideas and see what you have practiced. These counts record participation, not
+    language proficiency.
+  </p>
+  @if (loading()) {
+    <p role="status">Loading your practice…</p>
+  }
+  @if (error()) {
+    <p role="alert">{{ error() }}</p>
+  }
+  @if (store.error()) {
+    <p role="alert">{{ store.error() }}</p>
+  }
+  @if (!loading() && !error()) {
+    <div class="stats">
+      <section>
+        <strong>{{ practiced() }} / {{ lessons().length }}</strong
+        ><span>Lessons marked practiced</span>
+      </section>
+      <section>
+        <strong>{{ drafts() }}</strong
+        ><span>Saved writing responses</span>
+      </section>
+    </div>
+    <section class="continue">
+      <div>
+        <h2>Continue your learning</h2>
+        @if (resume(); as item) {
+          <p>Last opened: {{ languageName(item.language) }} · {{ item.title }}</p>
+          <a
+            class="primary"
+            [routerLink]="['/lessons', item.language]"
+            [queryParams]="{ lesson: item.id }"
+            >Resume this lesson →</a
+          >
+        } @else {
+          <p>Choose a language and start with a familiar situation.</p>
+          <a class="primary" routerLink="/languages">Explore languages →</a>
+        }
+      </div>
+      @if (recommended(); as item) {
+        <div>
+          <h3>Next unpracticed lesson</h3>
+          <p>{{ languageName(item.language) }} · {{ item.title }}</p>
+          <a [routerLink]="['/lessons', item.language]" [queryParams]="{ lesson: item.id }"
+            >Open suggested lesson →</a
+          >
+        </div>
+      }
+    </section>
+    <h2>Practice by language</h2>
+    <div class="languages">
+      @for (language of languages; track language.code) {
+        <section>
+          <h3>{{ language.name }}</h3>
+          <p>{{ count(language.code) }} / {{ total(language.code) }} practiced</p>
+          <progress
+            [value]="count(language.code)"
+            [max]="total(language.code) || 1"
+            [attr.aria-label]="language.name + ' practice completion'"
+          ></progress
+          ><a [routerLink]="['/lessons', language.code]">Open lessons →</a>
+        </section>
+      }
+    </div>
+    <section class="portfolio">
+      <h2>Your writing portfolio</h2>
+      <p>
+        Saved responses stay in this browser. Open a lesson to revise your writing; recordings are
+        not retained here.
+      </p>
+      @if (!portfolio().length) {
+        <p class="empty">
+          Your first saved response will appear here. Start with a sentence that matters to you.
+        </p>
+      }
+      @for (item of portfolio(); track item.id) {
+        <details>
+          <summary>
+            {{ languageName(item.language) }} · {{ item.title }}
+            <span>{{ store.records()[item.id].complete ? 'Practiced' : 'Draft' }}</span>
+          </summary>
+          <p class="writing" [attr.lang]="item.language">{{ store.records()[item.id].draft }}</p>
+          <p class="date">{{ savedDate(item.id) }}</p>
+          <a [routerLink]="['/lessons', item.language]" [queryParams]="{ lesson: item.id }"
+            >Revisit this writing →</a
+          >
+        </details>
+      }
+    </section>
+  }
+</main>

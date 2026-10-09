@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <header>
       <a class="brand" href="/">Learning App<span>A language. Your voice.</span></a
-      ><span class="tag">Your learning journey</span>
+      ><a class="tag" routerLink="/progress">My practice →</a>
     </header>
     <main>
       <section class="intro">

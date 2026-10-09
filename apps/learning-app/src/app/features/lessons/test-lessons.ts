@@ -2,6 +2,8 @@ import { Component, computed, inject, signal, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProfileStore, Assistance } from '../../core/learning/learning-profile';
+import { PracticeStore } from '../../core/storage/practice-store';
+import { combineLatest } from 'rxjs';
 
 interface Lesson {
   id: string;
@@ -15,10 +17,6 @@ interface Lesson {
   answer: string;
   audio: string;
 }
-interface Practice {
-  draft: string;
-  complete: boolean;
-}
 
 @Component({
   standalone: true,
@@ -27,6 +25,7 @@ interface Practice {
   styleUrl: './test-lessons.css',
 })
 export class TestLessons implements OnDestroy {
+  readonly practiceStore = inject(PracticeStore);
   readonly profileStore = inject(ProfileStore);
   readonly practiceFocus = computed(() => {
     const profile = this.profileStore.profile();
@@ -67,7 +66,7 @@ export class TestLessons implements OnDestroy {
   readonly loading = signal(true);
   readonly error = signal('');
   readonly audioError = signal('');
-  readonly practices = signal<Record<string, Practice>>({});
+  readonly practices = this.practiceStore.records;
   readonly completed = computed(
     () => this.lessons().filter((item) => this.practices()[item.id]?.complete).length,
   );
@@ -80,30 +79,36 @@ export class TestLessons implements OnDestroy {
   private timer?: ReturnType<typeof setTimeout>;
   private destroyed = false;
   private generation = 0;
+  private requestedLesson = '';
 
   constructor() {
     const assistance = this.profileStore.profile()?.assistance ?? 'guided';
     this.support.set(assistance);
     this.transcriptVisible.set(assistance !== 'independent');
-    try {
-      this.practices.set(JSON.parse(localStorage.getItem('learning-app-test-practice-v1') ?? '{}'));
-    } catch {
-      this.message.set(
-        'Browser storage is unavailable. Practice can continue without saved progress.',
-      );
-    }
-    inject(ActivatedRoute)
-      .paramMap.pipe(takeUntilDestroyed())
-      .subscribe((params) => {
+    const route = inject(ActivatedRoute);
+    combineLatest([route.paramMap, route.queryParamMap])
+      .pipe(takeUntilDestroyed())
+      .subscribe(([params, query]) => {
         this.language.set(params.get('language') ?? 'fr');
-        this.choose(0);
+        this.requestedLesson = query.get('lesson') ?? '';
+        this.choose(
+          Math.max(
+            0,
+            this.lessons().findIndex((item) => item.id === this.requestedLesson),
+          ),
+        );
       });
     fetch('/test-lessons/index.json')
       .then(async (response) => {
         if (!response.ok) throw new Error('Lesson files could not be loaded.');
         const payload = await response.json();
         this.all.set(payload.lessons);
-        this.choose(0);
+        this.choose(
+          Math.max(
+            0,
+            this.lessons().findIndex((item) => item.id === this.requestedLesson),
+          ),
+        );
       })
       .catch(() => this.error.set('Could not load test lessons. Refresh the page to try again.'))
       .finally(() => this.loading.set(false));
@@ -118,6 +123,7 @@ export class TestLessons implements OnDestroy {
     this.audioError.set('');
     this.meaningVisible.set(false);
     const item = this.lesson();
+    if (item) this.practiceStore.visit(item.id);
     this.draft.set(item ? (this.practices()[item.id]?.draft ?? '') : '');
   }
   changeSupport(value: string) {
@@ -168,17 +174,7 @@ export class TestLessons implements OnDestroy {
   private persist(complete: boolean) {
     const item = this.lesson();
     if (!item) return;
-    this.practices.update((value) => ({
-      ...value,
-      [item.id]: { draft: this.draft(), complete: complete || value[item.id]?.complete || false },
-    }));
-    try {
-      localStorage.setItem('learning-app-test-practice-v1', JSON.stringify(this.practices()));
-    } catch {
-      this.message.set(
-        'Could not save to browser storage. Your draft remains available until you leave this page.',
-      );
-    }
+    this.practiceStore.save(item.id, this.draft(), complete);
   }
   async record() {
     if (!navigator.mediaDevices?.getUserMedia || typeof MediaRecorder === 'undefined') {
