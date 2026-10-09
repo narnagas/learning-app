@@ -1,0 +1,36 @@
+# Dependencies and generated output
+node_modules/
+dist/
+build/
+coverage/
+.angular/
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Local media libraries and recordings
+*.wav
+*.WAV
+/recordings/
+/downloads/
+
+# Native generated output and local settings
+.gradle/
+Pods/
+DerivedData/
+local.properties
+xcuserdata/
+*.xcuserstate
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
