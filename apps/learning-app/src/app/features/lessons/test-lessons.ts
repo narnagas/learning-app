@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ProfileStore, Assistance } from '../../core/learning/learning-profile';
 
 interface Lesson {
   id: string;
@@ -26,6 +27,24 @@ interface Practice {
   styleUrl: './test-lessons.css',
 })
 export class TestLessons implements OnDestroy {
+  readonly profileStore = inject(ProfileStore);
+  readonly practiceFocus = computed(() => {
+    const profile = this.profileStore.profile();
+    if (!profile) return '';
+    const contexts: Record<string, string> = {
+      everyday: 'a familiar situation from your day',
+      work: 'your work or a conversation with a colleague',
+      home: 'your home life or routines',
+      travel: 'a journey or place you know',
+      social: 'a conversation with a friend',
+    };
+    const depths = {
+      everyday: 'Keep it concise: express one practical idea.',
+      exploratory: 'Explain why it matters and add a follow-up question.',
+      'in-depth': 'Explore a reason, a nuance, or another viewpoint using the language you know.',
+    };
+    return `Connect your response to ${contexts[profile.environment]}. ${depths[profile.depth]}${profile.interests.trim() ? ` If relevant, draw on your interest in ${profile.interests.trim()}.` : ''}`;
+  });
   readonly language = signal('fr');
   readonly all = signal<Lesson[]>([]);
   readonly lessons = computed(() => this.all().filter((item) => item.language === this.language()));
@@ -63,6 +82,9 @@ export class TestLessons implements OnDestroy {
   private generation = 0;
 
   constructor() {
+    const assistance = this.profileStore.profile()?.assistance ?? 'guided';
+    this.support.set(assistance);
+    this.transcriptVisible.set(assistance !== 'independent');
     try {
       this.practices.set(JSON.parse(localStorage.getItem('learning-app-test-practice-v1') ?? '{}'));
     } catch {
@@ -99,6 +121,8 @@ export class TestLessons implements OnDestroy {
     this.draft.set(item ? (this.practices()[item.id]?.draft ?? '') : '');
   }
   changeSupport(value: string) {
+    if (!['guided', 'supported', 'independent'].includes(value)) return;
+    this.profileStore.setAssistance(value as Assistance);
     this.support.set(value);
     this.meaningVisible.set(false);
     this.transcriptVisible.set(value !== 'independent');

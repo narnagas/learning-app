@@ -29,6 +29,10 @@ See [test fixture generation and verification](tools/test-lessons/README.md).
 
 Lesson audio uses language-specific neural voices, served as pre-generated WAV files. Playback does not contact the speech provider. The separate generation tool uses Microsoft Edge speech through `edge-tts` for this prototype; a supported production provider remains to be selected.
 
+## Personalize practice
+
+Open `/profile` to choose your everyday context, interests, conversation depth, and assistance. Optional introductory writing prompts are offered in your native language. Explicitly selected preferences adapt writing guidance and hints; responses are stored locally without automatic analysis. You can review, edit, or clear the profile. See [learning-profile behavior](docs/learning-profile.md).
+
 ## Run with Docker
 
 From the repository root, run `docker compose -f deploy/docker/compose.yaml up --build -d`, then open http://localhost:8080/languages. See [Docker instructions](deploy/docker/README.md) for lifecycle commands and the optional read-only WAV library mount.

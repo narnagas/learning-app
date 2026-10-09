@@ -1,0 +1,152 @@
+<header><a routerLink="/languages">← Language library</a><span>Your learning profile</span></header>
+<main>
+  <p class="eyebrow">BRING YOUR OWN VOICE</p>
+  <h1>Start with your world.</h1>
+  <p class="intro">
+    Tell us what you enjoy discussing and how you like to learn. Your ideas can be sophisticated
+    even when your new vocabulary is small.
+  </p>
+  <p class="privacy">
+    Optional. Your answers and preferences stay in this browser when you save. They are not sent to
+    an AI service or shared with tutors. These written prompts are a first step toward the
+    introductory conversation; there is no automatic personality or intelligence assessment.
+  </p>
+  <form (ngSubmit)="save()">
+    <section>
+      <h2>1. Your language and context</h2>
+      <div class="grid">
+        <label
+          >Your native language<select
+            name="native"
+            [(ngModel)]="model.nativeLanguage"
+            (ngModelChange)="native.set($event)"
+          >
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="tr">Turkish</option>
+            <option value="ru">Russian</option>
+            <option value="it">Italian</option>
+            <option value="other">Another language</option>
+          </select></label
+        >
+        <label
+          >Language to practice<select name="target" [(ngModel)]="model.targetLanguage">
+            @for (language of languages; track language.code) {
+              <option [value]="language.code">{{ language.name }}</option>
+            }
+          </select></label
+        >
+        <label
+          >Everyday context<select name="environment" [(ngModel)]="model.environment">
+            <option value="everyday">Everyday life</option>
+            <option value="work">Work and colleagues</option>
+            <option value="home">Home and routines</option>
+            <option value="travel">Travel and getting around</option>
+            <option value="social">Friends and relationships</option>
+          </select></label
+        >
+        <label
+          >Topics you enjoy<input
+            name="interests"
+            [(ngModel)]="model.interests"
+            maxlength="300"
+            placeholder="History, cooking, technology, music…"
+        /></label>
+      </div>
+      <label
+        >Your learning goal<textarea
+          name="goal"
+          [(ngModel)]="model.goal"
+          maxlength="800"
+          rows="2"
+          placeholder="What would you like to understand or express in this language?"
+        ></textarea>
+      </label>
+    </section>
+    <section>
+      <h2>2. A conversation in your own language</h2>
+      <p>
+        Write as much or as little as you like. These answers preserve your voice; current practice
+        adapts from the preferences you select, rather than interpreting your answers.
+      </p>
+      @if (native() === 'other') {
+        <p>The questions are shown in English for now. Please answer in your native language.</p>
+      }
+      @for (prompt of prompts(); track $index; let i = $index) {
+        <label class="conversation" [attr.for]="'conversation-' + i"
+          ><span [attr.lang]="native() === 'other' ? 'en' : native()">{{ prompt }}</span></label
+        ><textarea
+          [id]="'conversation-' + i"
+          [name]="'conversation-' + i"
+          [(ngModel)]="model.conversation[i]"
+          [attr.lang]="native() === 'other' ? null : native()"
+          maxlength="2500"
+          rows="4"
+        ></textarea>
+      }
+      <label
+        >What should a conversation partner know about your style?<textarea
+          name="communication"
+          [(ngModel)]="model.communication"
+          maxlength="800"
+          rows="2"
+          placeholder="For example, I enjoy gentle humor and time to think before answering."
+        ></textarea>
+      </label>
+    </section>
+    <section>
+      <h2>3. Choose your depth and assistance</h2>
+      <p>
+        Conversation depth and language proficiency are separate. Change these whenever you want.
+      </p>
+      <div class="grid">
+        <label
+          >Conversation depth<select name="depth" [(ngModel)]="model.depth">
+            <option value="everyday">Everyday — concise and practical</option>
+            <option value="exploratory">Exploratory — explain and reflect</option>
+            <option value="in-depth">In-depth — nuance and viewpoints</option>
+          </select></label
+        >
+        <label
+          >Starting assistance<select name="assistance" [(ngModel)]="model.assistance">
+            <option value="guided">Guided — visible examples and grammar</option>
+            <option value="supported">Supported — grammar on request</option>
+            <option value="independent">Independent — hints on request</option>
+          </select></label
+        >
+      </div>
+    </section>
+    <div class="actions">
+      <button class="primary" type="submit">Save my profile</button
+      ><a routerLink="/languages">Skip for now</a>
+      @if (store.profile()) {
+        <button type="button" (click)="clear()">Clear saved profile</button>
+      }
+    </div>
+  </form>
+  <p role="status">{{ message() }}</p>
+  @if (store.storageError()) {
+    <p role="alert">{{ store.storageError() }}</p>
+  }
+  @if (store.profile(); as profile) {
+    <section class="review">
+      <h2>Your preferences, in your words</h2>
+      <dl>
+        <dt>Topics</dt>
+        <dd>{{ profile.interests || 'Not specified' }}</dd>
+        <dt>Goal</dt>
+        <dd>{{ profile.goal || 'Not specified' }}</dd>
+        <dt>Conversation style</dt>
+        <dd>{{ profile.communication || 'Not specified' }}</dd>
+        <dt>Depth / assistance</dt>
+        <dd>{{ profile.depth }} / {{ profile.assistance }}</dd>
+      </dl>
+      <p>
+        Your context and depth shape writing prompts; your assistance setting controls initial
+        hints. Your conversation answers are saved for you to revisit.
+      </p>
+      <a class="start" [routerLink]="['/lessons', profile.targetLanguage]">Start my practice →</a>
+    </section>
+  }
+</main>

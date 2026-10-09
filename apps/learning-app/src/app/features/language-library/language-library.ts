@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, inject } from '@angular/core';
+import { ProfileStore } from '../../core/learning/learning-profile';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -20,6 +21,13 @@ import { RouterLink } from '@angular/router';
         </p>
       </section>
       <section aria-labelledby="language-heading">
+        <p class="selection">
+          <a routerLink="/profile">{{
+            profileStore.profile()
+              ? 'Review or edit your learning profile →'
+              : 'Make practice your own: create a learning profile →'
+          }}</a>
+        </p>
         <div class="section-title">
           <h2 id="language-heading">Which language would you like to explore?</h2>
           <span>01 / Choose your language</span>
@@ -320,6 +328,7 @@ import { RouterLink } from '@angular/router';
   `,
 })
 export class LanguageLibrary {
+  readonly profileStore = inject(ProfileStore);
   readonly languages = [
     {
       code: 'it',

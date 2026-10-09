@@ -20,6 +20,11 @@
       >Italian</a
     >
   </nav>
+  <p>
+    <a routerLink="/profile">{{
+      profileStore.profile() ? 'Edit your learning profile' : 'Personalize your practice'
+    }}</a>
+  </p>
   @if (message()) {
     <p role="status">{{ message() }}</p>
   }
@@ -141,6 +146,9 @@
         </section>
         <section>
           <h3>3. Write in your own voice</h3>
+          @if (practiceFocus()) {
+            <p class="meaning">Your practice focus: {{ practiceFocus() }}</p>
+          }
           <label for="writing">{{ item.prompt }}</label
           ><textarea
             id="writing"
