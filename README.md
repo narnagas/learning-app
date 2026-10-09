@@ -27,6 +27,8 @@ Open `/lessons/fr`, `/lessons/tr`, or `/lessons/ru` to practice. Drafts and comp
 
 See [test fixture generation and verification](tools/test-lessons/README.md).
 
+Lesson audio uses language-specific neural voices, served as pre-generated WAV files. Playback does not contact the speech provider. The separate generation tool uses Microsoft Edge speech through `edge-tts` for this prototype; a supported production provider remains to be selected.
+
 ## Run with Docker
 
 From the repository root, run `docker compose -f deploy/docker/compose.yaml up --build -d`, then open http://localhost:8080/languages. See [Docker instructions](deploy/docker/README.md) for lifecycle commands and the optional read-only WAV library mount.

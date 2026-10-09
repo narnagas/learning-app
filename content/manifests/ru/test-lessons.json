@@ -9,8 +9,10 @@
     "prompt": "Introduce yourself and describe your role.",
     "cloze": "Меня ___ Саша.",
     "answer": "зовут",
-    "audio": "/test-lessons/audio/ru/ru-01.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-01-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-02",
@@ -22,8 +24,10 @@
     "prompt": "Write two sentences about your morning.",
     "cloze": "Утром я ___ кофе.",
     "answer": "пью",
-    "audio": "/test-lessons/audio/ru/ru-02.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-02-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-03",
@@ -35,8 +39,10 @@
     "prompt": "Ask politely for a drink and a place to sit.",
     "cloze": "Можно мне чай, ___?",
     "answer": "пожалуйста",
-    "audio": "/test-lessons/audio/ru/ru-03.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-03-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-04",
@@ -48,8 +54,10 @@
     "prompt": "Explain that you need to change a meeting time.",
     "cloze": "Я ___ могу.",
     "answer": "не",
-    "audio": "/test-lessons/audio/ru/ru-04.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-04-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-05",
@@ -61,8 +69,10 @@
     "prompt": "Describe how you travel to a familiar place.",
     "cloze": "___ ближайшая остановка?",
     "answer": "Где",
-    "audio": "/test-lessons/audio/ru/ru-05.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-05-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-06",
@@ -74,8 +84,10 @@
     "prompt": "Write what you need for a meal.",
     "cloze": "Мне ___ хлеб и яблоки.",
     "answer": "нужны",
-    "audio": "/test-lessons/audio/ru/ru-06.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-06-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-07",
@@ -87,8 +99,10 @@
     "prompt": "Describe an interest and ask a related question.",
     "cloze": "Я люблю ___ .",
     "answer": "читать",
-    "audio": "/test-lessons/audio/ru/ru-07.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-07-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-08",
@@ -100,8 +114,10 @@
     "prompt": "Offer help with a task.",
     "cloze": "Я могу ___ вам.",
     "answer": "помочь",
-    "audio": "/test-lessons/audio/ru/ru-08.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-08-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-09",
@@ -113,8 +129,10 @@
     "prompt": "Explain a preference respectfully.",
     "cloze": "Мне больше ___ работать в тишине.",
     "answer": "нравится",
-    "audio": "/test-lessons/audio/ru/ru-09.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-09-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   },
   {
     "id": "ru-10",
@@ -126,7 +144,9 @@
     "prompt": "Write about a weekend plan.",
     "cloze": "Мы ___ готовить вместе.",
     "answer": "будем",
-    "audio": "/test-lessons/audio/ru/ru-10.wav",
-    "fixture": true
+    "audio": "/test-lessons/audio/ru/ru-10-neural.wav",
+    "fixture": true,
+    "voice": "ru-RU-SvetlanaNeural",
+    "audioEngine": "Microsoft Edge neural TTS (test generation)"
   }
 ]

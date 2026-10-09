@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "generator": "eSpeak NG (synthetic test audio)",
+  "version": 2,
+  "generator": "Microsoft Edge neural TTS via edge-tts; 24 kHz mono PCM WAV",
   "lessons": [
     {
       "id": "fr-01",
@@ -12,8 +12,10 @@
       "prompt": "Introduce yourself and describe your role.",
       "cloze": "Je ___ Camille.",
       "answer": "suis",
-      "audio": "/test-lessons/audio/fr/fr-01.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-01-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-02",
@@ -25,8 +27,10 @@
       "prompt": "Write two sentences about your morning.",
       "cloze": "Ensuite, je ___ mon travail.",
       "answer": "commence",
-      "audio": "/test-lessons/audio/fr/fr-02.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-02-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-03",
@@ -38,8 +42,10 @@
       "prompt": "Ask politely for a drink and a place to sit.",
       "cloze": "Je ___ un thé.",
       "answer": "voudrais",
-      "audio": "/test-lessons/audio/fr/fr-03.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-03-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-04",
@@ -51,8 +57,10 @@
       "prompt": "Explain that you need to change a meeting time.",
       "cloze": "Je ne suis ___ disponible.",
       "answer": "pas",
-      "audio": "/test-lessons/audio/fr/fr-04.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-04-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-05",
@@ -64,8 +72,10 @@
       "prompt": "Describe how you travel to a familiar place.",
       "cloze": "___ est l’arrêt ?",
       "answer": "Où",
-      "audio": "/test-lessons/audio/fr/fr-05.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-05-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-06",
@@ -77,8 +87,10 @@
       "prompt": "Write what you need for a meal.",
       "cloze": "Il me faut ___ pain.",
       "answer": "du",
-      "audio": "/test-lessons/audio/fr/fr-06.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-06-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-07",
@@ -90,8 +102,10 @@
       "prompt": "Describe an interest and ask a related question.",
       "cloze": "J’aime ___ le soir.",
       "answer": "lire",
-      "audio": "/test-lessons/audio/fr/fr-07.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-07-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-08",
@@ -103,8 +117,10 @@
       "prompt": "Offer help with a task.",
       "cloze": "Je ___ vous aider.",
       "answer": "peux",
-      "audio": "/test-lessons/audio/fr/fr-08.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-08-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-09",
@@ -116,8 +132,10 @@
       "prompt": "Explain a preference respectfully.",
       "cloze": "Je ___ travailler au calme.",
       "answer": "préfère",
-      "audio": "/test-lessons/audio/fr/fr-09.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-09-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "fr-10",
@@ -129,8 +147,10 @@
       "prompt": "Write about a weekend plan.",
       "cloze": "Nous ___ cuisiner ensemble.",
       "answer": "allons",
-      "audio": "/test-lessons/audio/fr/fr-10.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/fr/fr-10-neural.wav",
+      "fixture": true,
+      "voice": "fr-FR-DeniseNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-01",
@@ -142,8 +162,10 @@
       "prompt": "Introduce yourself and describe your role.",
       "cloze": "Merhaba, ___ Deniz.",
       "answer": "ben",
-      "audio": "/test-lessons/audio/tr/tr-01.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-01-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-02",
@@ -155,8 +177,10 @@
       "prompt": "Write two sentences about your morning.",
       "cloze": "Sabah kahve ___ .",
       "answer": "içiyorum",
-      "audio": "/test-lessons/audio/tr/tr-02.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-02-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-03",
@@ -168,8 +192,10 @@
       "prompt": "Ask for a drink and check whether a table is free.",
       "cloze": "Bu masa boş ___?",
       "answer": "mu",
-      "audio": "/test-lessons/audio/tr/tr-03.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-03-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-04",
@@ -181,8 +207,10 @@
       "prompt": "Explain that you need to change a meeting time.",
       "cloze": "Müsait ___ .",
       "answer": "değilim",
-      "audio": "/test-lessons/audio/tr/tr-04.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-04-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-05",
@@ -194,8 +222,10 @@
       "prompt": "Describe how you travel to a familiar place.",
       "cloze": "En yakın durak ___?",
       "answer": "nerede",
-      "audio": "/test-lessons/audio/tr/tr-05.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-05-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-06",
@@ -207,8 +237,10 @@
       "prompt": "Write what you need for a meal.",
       "cloze": "İki kişi ___ yemek hazırlıyorum.",
       "answer": "için",
-      "audio": "/test-lessons/audio/tr/tr-06.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-06-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-07",
@@ -220,8 +252,10 @@
       "prompt": "Describe an interest and ask a related question.",
       "cloze": "Kitap okumayı ___ .",
       "answer": "seviyorum",
-      "audio": "/test-lessons/audio/tr/tr-07.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-07-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-08",
@@ -233,8 +267,10 @@
       "prompt": "Offer help with a task.",
       "cloze": "Size yardım ___ .",
       "answer": "edebilirim",
-      "audio": "/test-lessons/audio/tr/tr-08.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-08-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-09",
@@ -246,8 +282,10 @@
       "prompt": "Explain a preference respectfully.",
       "cloze": "___ bir yerde çalışmayı tercih ediyorum.",
       "answer": "Sessiz",
-      "audio": "/test-lessons/audio/tr/tr-09.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-09-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "tr-10",
@@ -259,8 +297,10 @@
       "prompt": "Write about a weekend plan.",
       "cloze": "___ yemek yapacağız.",
       "answer": "Birlikte",
-      "audio": "/test-lessons/audio/tr/tr-10.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/tr/tr-10-neural.wav",
+      "fixture": true,
+      "voice": "tr-TR-EmelNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-01",
@@ -272,8 +312,10 @@
       "prompt": "Introduce yourself and describe your role.",
       "cloze": "Меня ___ Саша.",
       "answer": "зовут",
-      "audio": "/test-lessons/audio/ru/ru-01.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-01-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-02",
@@ -285,8 +327,10 @@
       "prompt": "Write two sentences about your morning.",
       "cloze": "Утром я ___ кофе.",
       "answer": "пью",
-      "audio": "/test-lessons/audio/ru/ru-02.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-02-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-03",
@@ -298,8 +342,10 @@
       "prompt": "Ask politely for a drink and a place to sit.",
       "cloze": "Можно мне чай, ___?",
       "answer": "пожалуйста",
-      "audio": "/test-lessons/audio/ru/ru-03.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-03-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-04",
@@ -311,8 +357,10 @@
       "prompt": "Explain that you need to change a meeting time.",
       "cloze": "Я ___ могу.",
       "answer": "не",
-      "audio": "/test-lessons/audio/ru/ru-04.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-04-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-05",
@@ -324,8 +372,10 @@
       "prompt": "Describe how you travel to a familiar place.",
       "cloze": "___ ближайшая остановка?",
       "answer": "Где",
-      "audio": "/test-lessons/audio/ru/ru-05.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-05-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-06",
@@ -337,8 +387,10 @@
       "prompt": "Write what you need for a meal.",
       "cloze": "Мне ___ хлеб и яблоки.",
       "answer": "нужны",
-      "audio": "/test-lessons/audio/ru/ru-06.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-06-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-07",
@@ -350,8 +402,10 @@
       "prompt": "Describe an interest and ask a related question.",
       "cloze": "Я люблю ___ .",
       "answer": "читать",
-      "audio": "/test-lessons/audio/ru/ru-07.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-07-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-08",
@@ -363,8 +417,10 @@
       "prompt": "Offer help with a task.",
       "cloze": "Я могу ___ вам.",
       "answer": "помочь",
-      "audio": "/test-lessons/audio/ru/ru-08.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-08-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-09",
@@ -376,8 +432,10 @@
       "prompt": "Explain a preference respectfully.",
       "cloze": "Мне больше ___ работать в тишине.",
       "answer": "нравится",
-      "audio": "/test-lessons/audio/ru/ru-09.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-09-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     },
     {
       "id": "ru-10",
@@ -389,8 +447,10 @@
       "prompt": "Write about a weekend plan.",
       "cloze": "Мы ___ готовить вместе.",
       "answer": "будем",
-      "audio": "/test-lessons/audio/ru/ru-10.wav",
-      "fixture": true
+      "audio": "/test-lessons/audio/ru/ru-10-neural.wav",
+      "fixture": true,
+      "voice": "ru-RU-SvetlanaNeural",
+      "audioEngine": "Microsoft Edge neural TTS (test generation)"
     }
   ]
 }
